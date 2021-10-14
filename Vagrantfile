@@ -19,6 +19,11 @@ Vagrant.configure("2") do |config|
 	  create: true, group: "vagrant",
 	  owner: "vagrant", id: "app"
 
+  config.vm.network "forwarded_port",
+	  guest: 8080, host: 8081,
+	  auto_correct: true,
+	  id: "wanderer-app"
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
