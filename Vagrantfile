@@ -14,10 +14,13 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "centos/7"
   
-  # sharing files basic usage from host to guest
+  # sharing files using rsync from host to guest
   config.vm.synced_folder "testapp/", "/var/www/app",
+	  type: "rsync",
 	  create: true, group: "vagrant",
-	  owner: "vagrant", id: "app"
+	  owner: "vagrant",
+	  rsync__auto: true,
+	  id: "app"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
