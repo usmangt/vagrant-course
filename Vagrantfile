@@ -14,10 +14,15 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "centos/7"
   
-  # sharing files basic usage from host to guest
+  # sharing files via NFS from host to guest
   config.vm.synced_folder "testapp/", "/var/www/app",
-	  create: true, group: "vagrant",
-	  owner: "vagrant", id: "app"
+	  create: true, id: "app",
+	  nfs_export: true,
+	  nfs_udp: "udp",
+	  nfs_version: 3
+  
+  # adding a static network between host and guest via DHCP
+  config.vm.network "private_network", type: "dhcp"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
