@@ -13,16 +13,28 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "centos/7"
-  
-  # sharing files basic usage from host to guest
-  config.vm.synced_folder "testapp/", "/var/www/app",
-	  create: true, group: "vagrant",
-	  owner: "vagrant", id: "app"
 
-  config.vm.network "forwarded_port",
-	  guest: 8080, host: 8081,
-	  auto_correct: true,
-	  id: "wanderer-app"
+  # WORKING WITH MULTIPLE MACHINES
+  config.vm.define "app" do |app|
+
+	  # sharing files basic usage from host to guest
+	   app.vm.synced_folder "testapp/", "/var/www/app",
+		  create: true, group: "vagrant",
+		  owner: "vagrant", id: "app"
+	   app.vm.network "forwarded_port",
+		  guest: 8080, host: 8081,
+		  auto_correct: true,
+		  id: "wanderer-app"
+  end
+
+  # DEFINING BLOCK FOR PROMETHEUS MONITORING MACHINE
+  config.vm.define "prom" do |prom|
+	  prom.vm.network "forwarded_port",
+		  guest: 9090,
+		  host: 9090,
+		  auto_correct: true,
+		  id: "prometheus"
+  end
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
