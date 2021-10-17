@@ -26,6 +26,7 @@ Vagrant.configure("2") do |config|
 		  auto_correct: true,
 		  id: "wanderer-app"
 	   app.vm.network "private_network", ip: "192.168.101.10"
+	   app.vm.hostname = "app"
   end
 
   # DEFINING BLOCK FOR PROMETHEUS MONITORING MACHINE
@@ -36,6 +37,7 @@ Vagrant.configure("2") do |config|
 		  auto_correct: true,
 		  id: "prometheus"
 	  prom.vm.network "private_network", ip: "192.168.101.11"
+	  prom.vm.hostname = "prom"
 
   end
 
