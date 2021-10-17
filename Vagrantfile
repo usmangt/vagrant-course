@@ -25,6 +25,7 @@ Vagrant.configure("2") do |config|
 		  guest: 8080, host: 8081,
 		  auto_correct: true,
 		  id: "wanderer-app"
+	   app.vm.network "private_network", ip: "192.168.101.10"
   end
 
   # DEFINING BLOCK FOR PROMETHEUS MONITORING MACHINE
@@ -34,6 +35,8 @@ Vagrant.configure("2") do |config|
 		  host: 9090,
 		  auto_correct: true,
 		  id: "prometheus"
+	  prom.vm.network "private_network", ip: "192.168.101.11"
+
   end
 
   # Disable automatic box update checking. If you disable this, then
